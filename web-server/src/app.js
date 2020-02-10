@@ -42,7 +42,9 @@ app.get('/about',(req, res) => {
 
 app.get('/help',(req, res) => {
     res.render('help', {
-        message: 'This is the required help page!!!'
+        message: 'This is the required help page!!!',
+        title: 'Help',
+        name: 'Namrta'
     })
 })
 //  not necessary as express by default serve
