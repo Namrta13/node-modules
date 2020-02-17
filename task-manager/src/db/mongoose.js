@@ -2,7 +2,8 @@
 //Validator npm module to add explicit validations
 
 const mongoose = require('mongoose')
-const validator = require('validator')
+
+//const validator = require('validator')
 
 mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api',{
     useNewUrlParser: true, useCreateIndex: true,
@@ -77,24 +78,24 @@ mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api',{
 //      console.log('Error!' + error)
 //  })
 
-const Tasks = mongoose.model('Tasks', {
-    description: {
-        type: String,
-        required: true,
-        trim: true  
-    },
-    completed: {
-        type: Boolean,
-        default: false
-    }
-})
+// const Tasks = mongoose.model('Tasks', {
+//     description: {
+//         type: String,
+//         required: true,
+//         trim: true  
+//     },
+//     completed: {
+//         type: Boolean,
+//         default: false
+//     }
+// })
 
-const first = new Tasks({
-    description: 'To learn a new tech'
-})
+// const first = new Tasks({
+//     description: 'To learn a new tech'
+// })
 
-first.save().then(() => {
-    console.log(first)
-}).catch((error) => {
-    console.log(error)
-})
+// first.save().then(() => {
+//     console.log(first)
+// }).catch((error) => {
+//     console.log(error)
+// })
