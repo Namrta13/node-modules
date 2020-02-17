@@ -26,18 +26,18 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     //* CREATED DB AND INSERTED DATA
     const db = client.db(databaseName)
 //* single doc insert
-    // db.collection('users').insertOne({
-    //     _id: id,
-    //     name: 'Disha',
-    //     age: 29
-    // }, (error, result) => {
-    //     if(error){
-    //      return console.log('Unable to insert user')
-    //     }
-    //      console.log(result.ops)
-    // })
+//     db.collection('users').insertOne({
+//        // _id: id,
+//         name: 'Disha',
+//         age: 29
+//     }, (error, result) => {
+//         if(error){
+//          return console.log('Unable to insert user')
+//         }
+//          console.log(result.ops)
+//     })
 
-//* multiple doc inserts
+// //* multiple doc inserts
 //     db.collection('users').insertMany([{
 //         name: 'Aayush',
 //         age: 24
@@ -70,66 +70,66 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     //        }
     //         console.log(result.ops)
     //     })
-        //created and inserted done
+//         created and inserted done
 
- //**  Read the data from db
-    // db.collection('users').findOne({ name: 'Aayush', age: 1 }, (error, user) => {
-    //    if (error){
-    //        return console.log('Unable to fetch')
-    //    }
-    //    console.log(user)
-    // })       
-    // //search by ID
-    // db.collection('users').findOne({ _id: new ObjectID("5e479c2b03371d00201a45ac") }, (error, user) => {
-    //     if (error){
-    //         return console.log('Unable to fetch')
-    //     }
-    //     console.log(user)
-    //  }) 
-     //** Read multiple data
-    //  db.collection('users').find({ age: 25 }).toArray((error, users) => {
-    //    console.log(users)
-    //  })
-    //  db.collection('users').find({ age: 25 }).count((error, users) => {
-    //     console.log(users)
-    //   })
+//  **  Read the data from db
+//     db.collection('users').findOne({ name: 'Aayush', age: 1 }, (error, user) => {
+//        if (error){
+//            return console.log('Unable to fetch')
+//        }
+//        console.log(user)
+//     })       
+//     //search by ID
+//     db.collection('users').findOne({ _id: new ObjectID("5e479c2b03371d00201a45ac") }, (error, user) => {
+//         if (error){
+//             return console.log('Unable to fetch')
+//         }
+//         console.log(user)
+//      }) 
+//      ** Read multiple data
+//      db.collection('users').find({ age: 25 }).toArray((error, users) => {
+//        console.log(users)
+//      })
+//      db.collection('users').find({ age: 25 }).count((error, users) => {
+//         console.log(users)
+//       })
 
-    //   db.collection('tasks').findOne({ _id: new ObjectID("5e46d6661f25cb0f70e5f635") }, (error, user) => {
-    //     if (error){
-    //         return console.log('Unable to fetch')
-    //     }
-    //     console.log(user)
-    //  }) 
-    //  db.collection('tasks').find({ completed: false }).toArray((error, user) => {
-    //     if (error){
-    //         return console.log('Unable to fetch')
-    //     }
-    //     console.log(user)
-    //  }) 
+//       db.collection('tasks').findOne({ _id: new ObjectID("5e46d6661f25cb0f70e5f635") }, (error, user) => {
+//         if (error){
+//             return console.log('Unable to fetch')
+//         }
+//         console.log(user)
+//      }) 
+//      db.collection('tasks').find({ completed: false }).toArray((error, user) => {
+//         if (error){
+//             return console.log('Unable to fetch')
+//         }
+//         console.log(user)
+//      }) 
 
-//** Update the data in mongoDB using update operators
-    //   db.collection('users').updateOne({
-    //       _id: new ObjectID("5e46d2820bd48f2288c050a9")
-    //   }, {
-    //       $set: {
-    //           name: 'Mike'
-    //       }
-    //   }).then((result) => {
-    //       console.log(result)
-    //   }).catch((error) => {
-    //       console.log(error)
-    //   })
-    // db.collection('users').updateOne({
-    //     _id: new ObjectID("5e46d2820bd48f2288c050a9")
-    // }, {
-    //     $inc: {
-    //         age: 2
-    //     }
-    // }).then((result) => {
-    //     console.log(result)
-    // }).catch((error) => {
-    //     console.log(error)
-    // })
+// ** Update the data in mongoDB using update operators
+//       db.collection('users').updateOne({
+//           _id: new ObjectID("5e46d2820bd48f2288c050a9")
+//       }, {
+//           $set: {
+//               name: 'Mike'
+//           }
+//       }).then((result) => {
+//           console.log(result)
+//       }).catch((error) => {
+//           console.log(error)
+//       })
+//     db.collection('users').updateOne({
+//         _id: new ObjectID("5e46d2820bd48f2288c050a9")
+//     }, {
+//         $inc: {
+//             age: 2
+//         }
+//     }).then((result) => {
+//         console.log(result)
+//     }).catch((error) => {
+//         console.log(error)
+//     })
     // db.collection('tasks').updateMany({
     //     completed: false
     // }, {
