@@ -2,217 +2,39 @@
 
 const express = require('express')
 require('./db/mongoose')
-const User = require('./model/user')
-const Tasks = require('./model/task')
+const userRouter = require('./routers/user')
+const taskRouter = require('./routers/task')
 
 const app = express()
 const port = process.env.PORT || 3000
 //automatically parse incomming json
 app.use(express.json())
+app.use(userRouter, taskRouter)
 
-//* Normal Promise way
-// app.post('/users', (req, res) => {
-//     const user = new User(req.body)
-//     user.save().then(() => {
-//         res.status(201).send(user)
-//     }).catch((e) => {
-//         res.status(400).send(e)
-//     })
-// })
-//* Async await function calls
-app.post('/users', async (req, res) => {
-        const user = new User(req.body)
-        try {
-            await user.save()
-            res.status(201).send(user)
-        } catch (e) {
-            res.status(400).send(e)
-        }
-        
-})
-
-//* Promise way
-// app.get('/users', (req, res) => {
-//       User.find({}).then((users) => {
-//            res.send(users)
-//       }).catch((e) => {
-//         res.status(500).send()
-//       })
+//** How to set up routers using express
+// const router = new express.Router()
+// router.get('/test', (req, res) => {
+//     res.send('This is from my other router')
 // })
 
-//* Async await
-app.get('/users', async (req, res) => {
-    try {
-      const users = await User.find({})
-      res.send(users)
-    } catch (e){
-    res.status(500).send()
-    }
-})
-//* Promise way
-// app.get('/users/:id', (req, res) => {
-//     const _id = req.params.id
-//     User.findById(_id).then((user)=> {
-//         if(!user) { 
-//            return res.status(404).send()
-//         }
-
-//         res.send(user)
-//     }).catch((e) => {
-//              res.status(500).send()
-//     })
-//     console.log(req.params)
-//     // User.find({ _id: id }).then((user) => {
-//     //      res.send(user)
-//     // }).catch((e) => {
-//     //   res.status(500).send()
-//     // })
-// })
-//* Async Await 
-app.get('/users/:id', async (req, res) => {
-    const _id = req.params.id    
-    try {
-       const user = await User.findById(_id)
-       if (!user) {
-           return res.status(404).send()
-       }  
-       res.send(user)
-        } catch (e) {
-          res.status(500).send()
-        }
-})
-
-
-//* Update the data using patch
-
-app.patch('/users/:id', async (req, res) => {
-    const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password', 'age']
-    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
-    
-    if (!isValidOperation) {
-        return res.status(400).send({ error: 'Invalid Update' })
-    }
-    try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-        if (!user){
-           return res.status(404).send()
-        }
-        res.send(user)
-    } catch (e) {
-         res.status(400).send(e)
-    }
-})
-
-//* Delete to delete
-app.delete('/users/:id', async (req, res) => {
-    try {
-      const user = await User.findByIdAndDelete(req.params.id)
-      if(!user){
-          return res.status(404).send()
-      }
-      res.send(user)
-    } catch(e){
-       res.status(500).send()
-    }
-})
-//** Promise way
-// app.post('/tasks', (req, res) => {
-//     const task = new Tasks(req.body)
-//     task.save().then(() => {
-//         res.status(201).send(task)
-//     }).catch((e) => {
-//         res.status(400).send(e)
-//     })
-
-// })
-
-// app.get('/tasks', (req, res) => {
-//     Tasks.find({}).then((tasks) => {
-//          res.send(tasks)
-//     }).catch((e) => {
-//         res.status(500).send()
-//     })
-// })
-
-// app.get('/tasks/:id', (req, res) => {
-//     const _newid = req.params.id
-//     Tasks.findById(_newid).then((taskValue) => {
-//          if (!taskValue) {
-//              return res.status(404).send()
-//          }
-
-//          res.send(taskValue)
-//     }).catch((e) => {
-//         res.status(500).send()
-//     })
-// })
-
-//* Async Await way
-app.post('/tasks', async (req, res) => {
-    const task = new Tasks(req.body)
-    try {
-      await task.save()  
-      res.status(201).send(task)
-    } catch (e) {
-       res.status(400).send(e)
-    }
-
-})
-
-app.get('/tasks', async (req, res) => {
-    try {
-       const tasks = await Tasks.find({})   
-       res.send(tasks)
-    } catch (e) {
-       res.status(500).send()
-    }
-})
-
-app.get('/tasks/:id', async (req, res) => {
-    const _newid = req.params.id
-    try {
-        const task = await Tasks.findById(_newid)
-        if (!task) {
-           return res.status(404).send()
-        }
-        res.send(task)
-    } catch(e){
-       res.status(500).send()
-    }
-})
-
-app.patch('/tasks/:id', async (req, res) => {
-    const upds = Object.keys(req.body)
-    const allowedVals = ['description', 'completed']
-    const validVal = upds.every((update) => allowedVals.includes(update))
-    if(!validVal){
-       return res.status(400).send({ error: 'Invalid Update' })
-    }
-    
-    try {
-      const task = await Tasks.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-      if (!task) {
-         return res.status(404).send()
-      }
-      res.send(task)
-    } catch (e){
-      res.status(400).send(e)
-    }
-})
-
-app.delete('/tasks/:id', async (req, res) => {
-    try {
-       const task = await Tasks.findByIdAndDelete(req.params.id)
-       if(!task){
-           res.status(404).send()
-       }
-       res.send(task)
-    } catch (e){
-        res.status(500).send(e)
-    }
-})
+// app.use(router)
+//end
 
 app.listen(port, () => {
     console.log('Server is up on port' + port)
 })
+
+//* bCRYPT HASHING ALGO for passwords
+
+// const bcrypt = require('bcryptjs')
+// const myFunction = async () => {
+//    const password = 'Red1234!'
+//    const hashPassword = await bcrypt.hash(password, 8)
+//    console.log(password)
+//    console.log(hashPassword)
+
+//    const isMatch = await bcrypt.compare('Red1234!', hashPassword)
+//    console.log(isMatch)
+//  }
+
+// myFunction()
