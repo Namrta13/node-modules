@@ -38,3 +38,17 @@ app.listen(port, () => {
 //  }
 
 // myFunction()
+
+
+//* JWT library working with the tokens
+// const jwt = require('jsonwebtoken')
+
+// const myFunction = async () => {
+//      const token = jwt.sign({ _id: 'abcd1234' }, 'mytakencourse', { expiresIn: '1 seconds'})
+//      console.log(token) 
+
+//      const data = jwt.verify(token, 'mytakencourse')
+//      console.log(data)
+//     }
+
+// myFunction()
