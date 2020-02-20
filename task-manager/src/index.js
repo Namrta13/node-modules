@@ -82,12 +82,17 @@ app.listen(port, () => {
 // }
 // console.log(JSON.stringify(pet))
 
-const Task = require('./model/task')
+//Virtual relationship between tables.
+// const Task = require('./model/task')
+// const User = require('./model/user')
 
-const main = async () => {
-  const task = await Task.findById('5e4e7f8b99d1263980c3ecbb')
-  
-  console.log(task.owner)
-}
+// const main = async () => {
+//   // const task = await Task.findById('5e4ead7f04d51e34f4e1efde')
+//   // await task.populate('owner').execPopulate()
+//   // console.log(task.owner)
+//      const user = await User.findById('5e4ead6a04d51e34f4e1efdc')
+//      await user.populate('tasks').execPopulate()
+//      console.log(user.tasks)
+//     }
 
-main()
+// main()

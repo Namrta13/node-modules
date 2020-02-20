@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-
+const Tasks = require('./task')
 
 //Create Schema to use Middleware
 // unique true on email to use unique email for every user
@@ -51,6 +51,14 @@ const userSchema = new mongoose.Schema({
         }
     }]
   })
+
+
+//Virtual Relation of user and task this is for mongoose to understand
+userSchema.virtual('tasks', {
+    ref: 'Tasks',
+    localField: '_id',
+    foreignField: 'owner'
+})
 //Method to hide user data 1st
 // userSchema.methods.getPublicProfile = function () {
 //     const user = this
@@ -106,6 +114,13 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
+//Delete User tasks when user is removed
+userSchema.pre('remove', async function (next){
+    const user = this
+    await Tasks.deleteMany({ owner: user._id })
+
+    next()
+})
 const User = mongoose.model('User', userSchema)
 
 
