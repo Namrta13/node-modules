@@ -7,6 +7,25 @@ const taskRouter = require('./routers/task')
 
 const app = express()
 const port = process.env.PORT || 3000
+
+ //setting up express middleware function to execute before running the route handlers
+//  app.use((req, res, next) => {
+//  //  console.log(req.method, req.path)
+//  //  next()
+//     if (req.method === 'GET'){
+//       res.send('GET requests are disabled')
+//     } else {
+//         next()
+//     }
+//  })
+// Dummy middleware code
+// app.use((req, res, next) => {
+//     if (req) {
+//         res.status(503).send('The server is Unavailable')
+//     }
+// })
+
+
 //automatically parse incomming json
 app.use(express.json())
 app.use(userRouter, taskRouter)
@@ -52,3 +71,23 @@ app.listen(port, () => {
 //     }
 
 // myFunction()
+
+// const pet = {
+//     name: 'Dobo'
+// }
+
+// pet.toJSON = function () {
+//   //  console.log(this)
+//     return {}
+// }
+// console.log(JSON.stringify(pet))
+
+const Task = require('./model/task')
+
+const main = async () => {
+  const task = await Task.findById('5e4e7f8b99d1263980c3ecbb')
+  
+  console.log(task.owner)
+}
+
+main()

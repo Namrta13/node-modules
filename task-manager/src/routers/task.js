@@ -1,5 +1,6 @@
 const express = require('express')
 const Tasks = require('../model/task')
+const auth = require('../middleware/auth')
 const router = new express.Router()
 
 //** Promise way
@@ -35,9 +36,13 @@ const router = new express.Router()
 // })
 
 //* Async Await way
-router.post('/tasks', async (req, res) => {
-    const task = new Tasks(req.body)
-    try {
+router.post('/tasks', auth, async (req, res) => {
+  //  const task = new Tasks(req.body)
+  const task = new Tasks({
+      ...req.body, 
+      owner: req.user._id
+  })  
+  try {
       await task.save()  
       res.status(201).send(task)
     } catch (e) {
