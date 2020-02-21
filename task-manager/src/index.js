@@ -24,7 +24,30 @@ const port = process.env.PORT || 3000
 //         res.status(503).send('The server is Unavailable')
 //     }
 // })
+//**use of multer for file uploads and error handling
+// const multer = require('multer')
+// const upload = multer({
+//     dest: 'images',
+//     limits: {
+//         fileSize: 1000000
+//     },
+//     fileFilter(req, file, cb){
+//         if (!file.originalname.match(/\.(doc|docx)$/)){
+//            return cb(new Error('Please Upload a Word Doc'))
+//         }
 
+//         cb(undefined, true)
+//         // cb(new Error('File must be PDF'))
+//         // cb(undefined, true)
+//         // cb(undefined, false)
+//     }
+// })
+
+// app.post('/upload', upload.single('upload'), (req, res) => {
+//     res.send()
+// }, (error, req, res, next) => {
+//     res.status(400).send({ error: error.message })
+// })
 
 //automatically parse incomming json
 app.use(express.json())
