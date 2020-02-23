@@ -6,7 +6,7 @@ const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
  //setting up express middleware function to execute before running the route handlers
 //  app.use((req, res, next) => {

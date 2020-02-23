@@ -3,6 +3,7 @@ const User = require('../model/user')
 const auth = require('../middleware/auth')
 const multer = require('multer')
 const sharp = require('sharp')
+const { sendwelcomeEmail, sendCancleEmail } = require('../emails/account')
 const router = new express.Router()
 
 //* Normal Promise way
@@ -19,6 +20,7 @@ router.post('/users', async (req, res) => {
     const user = new User(req.body)
     try {
         await user.save()
+        sendwelcomeEmail(user.email, user.name)
         const token = await user.generateAuthToken()
         res.status(201).send({ user, token })
     } catch (e) {
@@ -131,6 +133,7 @@ try {
 //       return res.status(404).send()
 //   } Remove method on mongoose doc
   await req.user.remove()
+  sendCancleEmail(req.user.email, req.user.name)
   res.send(req.user)
 } catch(e){
    res.status(500).send()
