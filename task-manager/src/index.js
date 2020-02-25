@@ -1,11 +1,13 @@
 // CRUD operations in REST API
+const app = require('./app')
 
-const express = require('express')
-require('./db/mongoose')
-const userRouter = require('./routers/user')
-const taskRouter = require('./routers/task')
 
-const app = express()
+// const express = require('express')
+// require('./db/mongoose')
+// const userRouter = require('./routers/user')
+// const taskRouter = require('./routers/task')
+
+// const app = express()
 const port = process.env.PORT
 
  //setting up express middleware function to execute before running the route handlers
@@ -50,8 +52,8 @@ const port = process.env.PORT
 // })
 
 //automatically parse incomming json
-app.use(express.json())
-app.use(userRouter, taskRouter)
+// app.use(express.json())
+// app.use(userRouter, taskRouter)
 
 //** How to set up routers using express
 // const router = new express.Router()
