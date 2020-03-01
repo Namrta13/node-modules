@@ -1,15 +1,10 @@
 const request = require('supertest')
-const jwt = require('jsonwebtoken')
-const mongoose = require('mongoose')
 const app = require('../src/app')
 const User = require('../src/model/user')
+const { userOneId, userOne, setupDatabase } = require('./fixtures/db')
 
 
-
-beforeEach(async () => {
-    await User.deleteMany()
-    await new User(userOne).save()
-})
+beforeEach(setupDatabase)
 
 
 test('Signup new user', async () => {
